@@ -1,0 +1,17 @@
+{
+  "name": "es/routing",
+  "authors": [
+    {
+      "name": "Esdras Schonevald"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "Example\\App\\Controllers\\": "Example/App/Controllers"
+    }
+  },
+  "require": {
+    "symfony/http-foundation": "^6.2"
+  }
+}
