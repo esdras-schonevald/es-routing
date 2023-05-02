@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Routing;
+namespace Phprise\Routing;
 
-use App\Routing\RouteInterface;
+use Phprise\Common\Contract\RouteCollectionInterface;
+use Phprise\Common\Contract\RouteInterface;
 
-class RouteCollection implements \Iterator, \Countable
+class RouteCollection implements RouteCollectionInterface
 {
     private int $index = 0;
     private array $array = [];

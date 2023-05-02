@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Common\ValueObject;
+namespace Phprise\Common\ValueObject;
 
-enum RequestMethod: string
+use Phprise\Common\Contract\RequestMethodInterface;
+
+enum RequestMethod: string implements RequestMethodInterface
 {
     case GET = 'GET';
     case POST = 'POST';

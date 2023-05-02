@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Common\ValueObject;
+namespace Phprise\Common\ValueObject;
 
-use App\Common\Contract\FileCollectionInterface;
-use App\Common\ValueObject\File;
+use Phprise\Common\Contract\FileCollectionInterface;
+use Phprise\Common\Contract\FileInterface;
 
 class FileCollection implements FileCollectionInterface
 {
@@ -17,7 +17,7 @@ class FileCollection implements FileCollectionInterface
         return count($this->array);
     }
 
-    public function current(): File
+    public function current(): FileInterface
     {
         return $this->array[$this->index];
     }
@@ -42,12 +42,12 @@ class FileCollection implements FileCollectionInterface
         return isset($this->array[$this->index]);
     }
 
-    public function add(File ...$file): void
+    public function add(FileInterface ...$file): void
     {
         array_map(fn ($item) => $this->array[] = $item, $file);
     }
 
-    public function remove(File ...$file): void
+    public function remove(FileInterface ...$file): void
     {
         array_map(function ($item) {
             unset($this->array[array_search($item, $this->array)]);

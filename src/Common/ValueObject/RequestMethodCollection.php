@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Common\ValueObject;
+namespace Phprise\Common\ValueObject;
 
-use App\Common\ValueObject\RequestMethod;
+use Phprise\Common\Contract\RequestMethodCollectionInterface;
+use Phprise\Common\Contract\RequestMethodInterface;
 
-class RequestMethodCollection implements \Countable, \Iterator
+class RequestMethodCollection implements RequestMethodCollectionInterface
 {
     private array $array;
 
     private int $index;
 
-    public function __construct(?RequestMethod ...$requestMethod)
+    public function __construct(?RequestMethodInterface ...$requestMethod)
     {
         if (!empty($requestMethod)) {
             $this->add(...$requestMethod);
@@ -24,7 +25,7 @@ class RequestMethodCollection implements \Countable, \Iterator
         return count($this->array);
     }
 
-    public function current(): RequestMethod
+    public function current(): RequestMethodInterface
     {
         return $this->array[$this->index];
     }
@@ -49,12 +50,12 @@ class RequestMethodCollection implements \Countable, \Iterator
         return isset($this->array[$this->index]);
     }
 
-    public function add(RequestMethod ...$requesMethod): void
+    public function add(RequestMethodInterface ...$requesMethod): void
     {
         array_map(fn ($item) => $this->array[] = $item, $requesMethod);
     }
 
-    public function remove(RequestMethod ...$requestMethod): void
+    public function remove(RequestMethodInterface ...$requestMethod): void
     {
         array_map(function ($item) {
             unset($this->array[array_search($item, $this->array)]);

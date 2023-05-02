@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Routing;
+namespace Phprise\Routing;
 
-use App\Common\Contract\Arrayable;
+use Phprise\Common\Contract\Arrayable;
 
 class ControllerCollection implements \Iterator, \Countable, Arrayable
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Hook;
+namespace Phprise\Hook;
 
 trait PubGet
 {

@@ -2,25 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Routing;
+namespace Phprise\Routing;
 
-use App\Common\ValueObject\Path;
-use App\Common\ValueObject\RequestMethod;
-use App\Common\ValueObject\RequestMethodCollection;
-use App\Hook\PubGet;
 use Attribute;
+use Phprise\Common\Contract\RequestMethodCollectionInterface;
+use Phprise\Common\Contract\RouteInterface;
+use Phprise\Common\Contract\RoutePathInterface;
+use Phprise\Common\ValueObject\RequestMethod;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Attribute]
 class Route implements RouteInterface
 {
-    use PubGet;
-
     private Request $request;
 
     public function __construct(
-        private Path $path,
-        private RequestMethodCollection $methods,
+        private RoutePathInterface $path,
+        private RequestMethodCollectionInterface $methods,
         private object $controller,
         private string $action
     ) {

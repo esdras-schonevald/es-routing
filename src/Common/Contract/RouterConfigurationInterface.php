@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Routing;
-
-use App\Common\ValueObject\Directory;
-use App\Routing\RouteInterface;
+namespace Phprise\Common\Contract;
 
 interface RouterConfigurationInterface
 {
@@ -15,7 +12,9 @@ interface RouterConfigurationInterface
 
     public function addController(object ...$controller): void;
 
-    public function addDirectory(Directory ...$directory): void;
+    public function addDirectory(DirectoryInterface ...$directory): void;
+
+    public function getMatchedRoute(): RouteInterface;
 
     /** static methods contracts */
 

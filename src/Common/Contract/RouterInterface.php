@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Routing;
+namespace Phprise\Common\Contract;
 
 interface RouterInterface
 {

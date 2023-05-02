@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Common\ValueObject;
+namespace Phprise\Common\ValueObject;
 
-use App\Common\Contract\Collectible;
+use Phprise\Common\Contract\FileInterface;
 
-class File extends \Symfony\Component\HttpFoundation\File\File implements Collectible
+class File extends \Symfony\Component\HttpFoundation\File\File implements FileInterface
 {
 }

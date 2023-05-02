@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Routing;
+namespace Phprise\Routing;
+
+use Phprise\Common\Contract\RouterConfigurationInterface;
+use Phprise\Common\Contract\RouterInterface;
 
 class SimpleRouter implements RouterInterface
 {
@@ -15,8 +18,7 @@ class SimpleRouter implements RouterInterface
     {
 
         $configuration      =   $this->configuration;
-        $routeCollection    =   $configuration->routeCollection;
-        $route              =   $routeCollection->match();
+        $route              =   $configuration->getMatchedRoute();
 
         $route->use();
     }

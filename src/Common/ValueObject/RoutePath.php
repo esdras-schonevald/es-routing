@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Common\ValueObject;
+namespace Phprise\Common\ValueObject;
 
-class Path
+use Phprise\Common\Contract\RoutePathInterface;
+
+class RoutePath implements RoutePathInterface
 {
     public function __construct(private string $path)
     {
@@ -15,7 +17,7 @@ class Path
         return $this->path;
     }
 
-    public function getPattern()
+    public function getPattern(): string
     {
         $pattern = '#^' . preg_replace('/\{([a-zA-Z]+)(:[\w]+)?\}/', '(?P<$1>\w$2+)', (string) $this->path) . '$#i';
         $pattern = str_replace(['\w:int', '\w:integer'], '\d', $pattern);

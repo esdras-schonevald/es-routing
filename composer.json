@@ -8,8 +8,8 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "App\\": "src/",
-      "Example\\App\\Controllers\\": "Example/App/Controllers"
+      "Phprise\\": "src/",
+      "Example\\App\\Controller\\": "Example/App/Controller"
     }
   },
   "require": {

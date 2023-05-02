@@ -2,21 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Contract;
-
-use App\Common\ValueObject\Directory;
-use App\Common\ValueObject\DirectoryCollection;
-use App\Common\ValueObject\FileCollection;
+namespace Phprise\Common\Contract;
 
 interface DirectoryCollectionInterface extends \Countable, \Iterator, Arrayable
 {
-    function current(): Directory;
+    function current(): DirectoryInterface;
 
-    function add(Directory ...$collectible): void;
+    function add(DirectoryInterface ...$collectible): void;
 
-    function remove(Directory ...$collectible): void;
+    function remove(DirectoryInterface ...$collectible): void;
 
-    function getDirectoriesTree(): DirectoryCollection;
+    function getDirectoriesTree(): DirectoryCollectionInterface;
 
-    function getFiles(): FileCollection;
+    function getFiles(): FileCollectionInterface;
 }

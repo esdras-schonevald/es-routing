@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Phprise\Common\Contract;
 
-interface Arrayable
+interface FileInterface
 {
-    public function toArray(): array;
 }

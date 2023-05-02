@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Common\ValueObject;
+namespace Phprise\Common\ValueObject;
 
-use App\Common\Contract\DirectoryCollectionInterface;
-use App\Common\ValueObject\Directory;
+use Phprise\Common\Contract\DirectoryCollectionInterface;
+use Phprise\Common\Contract\DirectoryInterface;
+use Phprise\Common\Contract\FileCollectionInterface;
 
 class DirectoryCollection implements DirectoryCollectionInterface
 {
@@ -17,7 +18,7 @@ class DirectoryCollection implements DirectoryCollectionInterface
         return count($this->array);
     }
 
-    public function current(): Directory
+    public function current(): DirectoryInterface
     {
         return $this->array[$this->index];
     }
@@ -47,19 +48,19 @@ class DirectoryCollection implements DirectoryCollectionInterface
         return $this->array;
     }
 
-    public function add(Directory ...$collectible): void
+    public function add(DirectoryInterface ...$collectible): void
     {
         array_map(fn ($item) => $this->array[] = $item, $collectible);
     }
 
-    public function remove(Directory ...$directory): void
+    public function remove(DirectoryInterface ...$directory): void
     {
         array_map(function ($item) {
             unset($this->array[array_search($item, $this->array)]);
         }, $directory);
     }
 
-    public function getDirectoriesTree(): DirectoryCollection
+    public function getDirectoriesTree(): DirectoryCollectionInterface
     {
         $tree = new DirectoryCollection();
         array_map(fn ($dir) => $tree->add(
@@ -69,7 +70,7 @@ class DirectoryCollection implements DirectoryCollectionInterface
         return $tree;
     }
 
-    public function getFiles(): FileCollection
+    public function getFiles(): FileCollectionInterface
     {
         $files = new FileCollection();
         array_map(fn ($dir) => $files->add(...$dir->getFiles()->toArray()), $this->array);

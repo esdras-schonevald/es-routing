@@ -2,26 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Routing;
+namespace Phprise\Routing;
 
-use App\Common\ValueObject\Directory;
-use App\Common\ValueObject\DirectoryCollection;
-use App\Common\ValueObject\Path;
-use App\Common\ValueObject\RequestMethod;
-use App\Common\ValueObject\RequestMethodCollection;
-use App\Hook\PubGet;
-use App\Routing\ControllerCollection;
-use App\Routing\Route;
-use App\Routing\RouteCollection;
-use App\Routing\RouteInterface;
 use Exception;
-use ReflectionClass;
+use Phprise\Common\Contract\DirectoryInterface;
+use Phprise\Common\Contract\RequestMethodCollectionInterface;
+use Phprise\Common\Contract\RouteCollectionInterface;
+use Phprise\Common\Contract\RouteInterface;
+use Phprise\Common\Contract\RoutePathInterface;
+use Phprise\Common\Contract\RouterConfigurationInterface;
+use Phprise\Common\ValueObject\Directory;
+use Phprise\Common\ValueObject\DirectoryCollection;
+use Phprise\Common\ValueObject\RequestMethod;
+use Phprise\Common\ValueObject\RequestMethodCollection;
+use Phprise\Common\ValueObject\RoutePath;
+use Phprise\Routing\ControllerCollection;
+use Phprise\Routing\Route;
+use Phprise\Routing\RouteCollection;
 
 class RouterConfiguration implements RouterConfigurationInterface
 {
-    use PubGet;
-
-    private RouteCollection $routeCollection;
+    private RouteCollectionInterface $routeCollection;
     private ControllerCollection $controllerCollection;
     private DirectoryCollection $directoryCollection;
 
@@ -47,9 +48,14 @@ class RouterConfiguration implements RouterConfigurationInterface
         $this->controllerCollection->add(...$controller);
     }
 
-    public function addDirectory(Directory ...$directory): void
+    public function addDirectory(DirectoryInterface ...$directory): void
     {
         $this->directoryCollection->add(...$directory);
+    }
+
+    public function getMatchedRoute(): RouteInterface
+    {
+        return $this->routeCollection->match();
     }
 
     /** protected methods */
@@ -68,7 +74,7 @@ class RouterConfiguration implements RouterConfigurationInterface
 
     protected function registerAttributeController(object $controller): void
     {
-        $ref        =   new ReflectionClass($controller);
+        $ref        =   new \ReflectionClass($controller);
         $methods    =   $ref->getMethods();
 
         array_map(
@@ -101,24 +107,24 @@ class RouterConfiguration implements RouterConfigurationInterface
         $this->routeCollection->add($route);
     }
 
-    protected function getAttributeRoutePath(\ReflectionAttribute $attribute): \App\Common\ValueObject\Path
+    protected function getAttributeRoutePath(\ReflectionAttribute $attribute): RoutePathInterface
     {
         $args = $attribute->getArguments();
         $path = $args['path'] ?? $args[0];
 
-        if ($path instanceof Path) {
+        if ($path instanceof RoutePathInterface) {
             return $path;
         }
 
-        return new Path((string) $path);
+        return new RoutePath((string) $path);
     }
 
-    protected function getAttributeRouteMethods(\ReflectionAttribute $attribute): RequestMethodCollection
+    protected function getAttributeRouteMethods(\ReflectionAttribute $attribute): RequestMethodCollectionInterface
     {
         $args   =   $attribute->getArguments();
         $arg    =   $args['methods'] ?? $args['method'] ?? $args[1] ?? null;
 
-        if ($arg instanceof RequestMethodCollection) {
+        if ($arg instanceof RequestMethodCollectionInterface) {
             return $arg;
         }
 

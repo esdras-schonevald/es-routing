@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Common\Contract;
+namespace Phprise\Common\Contract;
 
-use App\Common\Contract\Arrayable;
-use App\Common\ValueObject\File;
+use Phprise\Common\Contract\Arrayable;
 
 interface FileCollectionInterface extends \Iterator, \Countable, Arrayable
 {
-    function current(): File;
+    function current(): FileInterface;
 
-    function add(File ...$file): void;
+    function add(FileInterface ...$file): void;
 
-    function remove(File ...$file): void;
+    function remove(FileInterface ...$file): void;
 }

@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Example\App\Controllers;
+namespace Example\App\Controller;
 
-use App\Common\ValueObject\Path;
-use App\Routing\Route;
+use Phprise\Routing\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 class HelloController

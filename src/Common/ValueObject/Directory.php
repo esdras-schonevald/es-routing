@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Common\ValueObject;
+namespace Phprise\Common\ValueObject;
 
-use App\Common\Contract\Collectible;
-use App\Common\ValueObject\DirectoryCollection;
+use Phprise\Common\Contract\DirectoryCollectionInterface;
+use Phprise\Common\Contract\DirectoryInterface;
+use Phprise\Common\Contract\FileCollectionInterface;
+use Phprise\Common\ValueObject\DirectoryCollection;
 
-class Directory implements \Stringable, Collectible, \IteratorAggregate
+class Directory implements DirectoryInterface
 {
 
     private function __construct(
         private \Directory $directory,
-        private DirectoryCollection $nodeDirectories = new DirectoryCollection(),
-        private FileCollection $nodeFiles = new FileCollection()
+        private DirectoryCollectionInterface $nodeDirectories = new DirectoryCollection(),
+        private FileCollectionInterface $nodeFiles = new FileCollection()
     ) {
         $nodes = array_filter(
             scandir($this->directory->path),
@@ -71,7 +73,7 @@ class Directory implements \Stringable, Collectible, \IteratorAggregate
         $this->directory = dir($output);
     }
 
-    public function getDirectoriesTree(): DirectoryCollection
+    public function getDirectoriesTree(): DirectoryCollectionInterface
     {
         $tree = new DirectoryCollection();
         $tree->add($this);
@@ -82,13 +84,13 @@ class Directory implements \Stringable, Collectible, \IteratorAggregate
         return $tree;
     }
 
-    public function getFilesTree(): FileCollection
+    public function getFilesTree(): FileCollectionInterface
     {
         $dirs = $this->getDirectoriesTree();
         return $dirs->getFiles();
     }
 
-    public function getFiles(): FileCollection
+    public function getFiles(): FileCollectionInterface
     {
         return $this->nodeFiles;
     }
