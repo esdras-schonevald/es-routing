@@ -5,6 +5,7 @@
       "name": "Esdras Schonevald"
     }
   ],
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "App\\": "src/",
