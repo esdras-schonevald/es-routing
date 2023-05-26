@@ -26,7 +26,7 @@ class Directory implements DirectoryInterface
             $path = $this->directory->path . DIRECTORY_SEPARATOR . $node;
             if (is_dir($path)) {
                 $this->nodeDirectories->add(
-                    Directory::createFromString($node)
+                    Directory::createFromString($path)
                 );
             }
 
